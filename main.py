@@ -85,12 +85,6 @@ def send_groupme_message(message):
 
 def main():
     print("Starting Bible Study Notifier...")
-
-    # Only proceed if today is Monday
-    if datetime.today().weekday() != 0:
-        print("Today is not Monday. Exiting without sending message.")
-        return
-
     details = get_this_weeks_study()
     if not details:
         print("No details found for this week. Exiting.")
@@ -100,7 +94,7 @@ def main():
         f"📅 Study is on *{details['Night']}* ({details['Date']})\n"
         f"🍽 Dinner: {details['Dinner']}\n"
         f"📜 Passage: {details['Passage']}\n\n"
-        f"Let us know if you're coming!"
+        f"See you there!"
     )
 
     send_groupme_message(msg)
