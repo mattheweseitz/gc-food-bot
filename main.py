@@ -84,20 +84,27 @@ def send_groupme_message(message):
         print(f"ERROR: Exception while sending GroupMe message - {e}")
 
 def main():
-    print("Starting Bible Study Notifier...")
-    details = get_this_weeks_study()
-    if not details:
-        print("No details found for this week. Exiting.")
-        return
+    today = datetime.now().weekday()
+    print(f"Today is weekday #{today}")
+    # Get the current day of the week (0 = Monday, 6 = Sunday)
+    if datetime.now().weekday() == 0:
+        print("Starting Bible Study Notifier...")
+        details = get_this_weeks_study()
+        if not details:
+            print("No details found for this week. Exiting.")
+            return
 
-    msg = MESSAGE + (
-        f"📅 Study is on *{details['Night']}* ({details['Date']})\n"
-        f"🍽 Dinner: {details['Dinner']}\n"
-        f"📜 Passage: {details['Passage']}\n\n"
-        f"See you there!"
-    )
+        msg = MESSAGE + (
+            f"📅 Study is on *{details['Night']}* ({details['Date']})\n"
+            f"🍽 Dinner: {details['Dinner']}\n"
+            f"📜 Passage: {details['Passage']}\n\n"
+            f"See you there!"
+        )
 
-    send_groupme_message(msg)
+        send_groupme_message(msg)
+    else:
+        today = datetime.now()
+        print(f"Bypassing GC bot because today is {today.strftime('%A')}")
 
 if __name__ == "__main__":
     main()
